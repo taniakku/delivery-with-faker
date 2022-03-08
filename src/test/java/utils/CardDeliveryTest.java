@@ -72,7 +72,7 @@ public class CardDeliveryTest {
         $("[class='notification__content']").shouldHave(Condition.text("Встреча успешно запланирована на " + orderDate), Duration.ofSeconds(15));
 
         $(byText("Запланировать")).click();
-        $("[data-test-id=\"replan-notification\"]").shouldHave(Condition.text("У вас уже запланирована встреча на другую дату. Перепланировать?"), Duration.ofSeconds(3));
+        $("[data-test-id='replan-notification']").shouldHave(Condition.text("У вас уже запланирована встреча на другую дату. Перепланировать?"), Duration.ofSeconds(2));
         $(byText("Перепланировать")).click();
         $("[class='notification__content']").shouldHave(Condition.text("Встреча успешно запланирована на " + orderDate), Duration.ofSeconds(15));
 
