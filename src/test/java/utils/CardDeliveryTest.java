@@ -31,7 +31,7 @@ public class CardDeliveryTest {
     @BeforeEach
     void Preparation() {
         Configuration.holdBrowserOpen = true;
-        open("http://localhost:9999");
+        open("");
 
 
     }
@@ -50,7 +50,7 @@ public class CardDeliveryTest {
         $(byClassName("checkbox__box")).click();
         $(byText("Запланировать")).click();
 
-        $(withText("Успешно!")).should(appear, Duration.ofSeconds(1));
+        $(withText("Успешно!")).should(appear, Duration.ofSeconds(15));
         $("[class='notification__content']").shouldHave(Condition.text("Встреча успешно запланирована на " + orderDate), Duration.ofSeconds(15));
 
     }
