@@ -40,41 +40,50 @@ public class CardDeliveryTest {
     @Test
     void ShouldSendForm() {
 
-        String orderDate = LocalDate.now().plusDays(5).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        var daysToAddForFirstMeeting = 4;
+        var firstMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting);
+        var daysToAddForSecondMeeting = 7;
+        var secondMeetingDate = DataGenerator.generateDate(daysToAddForSecondMeeting);
 
-        $("[data-test-id='city'] input").val(faker.address().city());
+        $("[data-test-id='city'] input").setValue(DataGenerator.generateCity("ru"));
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").setValue(orderDate);
-        $(byName("name")).val(faker.name().fullName());
-        $("[name='phone']").val(faker.phoneNumber().phoneNumber());
+        $("[data-test-id='date'] input").setValue(firstMeetingDate);
+        $(byName("name")).setValue(DataGenerator.generateName("ru"));
+        $("[name='phone']").setValue(DataGenerator.generatePhone("ru"));
         $(byClassName("checkbox__box")).click();
         $(byText("Запланировать")).click();
 
         $(withText("Успешно!")).should(appear, Duration.ofSeconds(15));
-        $("[class='notification__content']").shouldHave(Condition.text("Встреча успешно запланирована на " + orderDate), Duration.ofSeconds(15));
+        $("[class='notification__content']").shouldHave(Condition.text("Встреча успешно запланирована на " + firstMeetingDate), Duration.ofSeconds(15));
 
     }
 
     @Test
     void ShouldSendFormTwice() {
 
-        String orderDate = LocalDate.now().plusDays(5).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        var daysToAddForFirstMeeting = 4;
+        var firstMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting);
+        var daysToAddForSecondMeeting = 7;
+        var secondMeetingDate = DataGenerator.generateDate(daysToAddForSecondMeeting);
 
-        $("[data-test-id='city'] input").val(faker.address().city());
+        $("[data-test-id='city'] input").setValue(DataGenerator.generateCity("ru"));
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").setValue(orderDate);
-        $(byName("name")).val(faker.name().fullName());
-        $("[name='phone']").val(faker.phoneNumber().phoneNumber());
+        $("[data-test-id='date'] input").setValue(firstMeetingDate);
+        $(byName("name")).setValue(DataGenerator.generateName("ru"));
+        $("[name='phone']").setValue(DataGenerator.generatePhone("ru"));
         $(byClassName("checkbox__box")).click();
         $(byText("Запланировать")).click();
 
         $(withText("Успешно!")).should(appear, Duration.ofSeconds(15));
-        $("[class='notification__content']").shouldHave(Condition.text("Встреча успешно запланирована на " + orderDate), Duration.ofSeconds(15));
+        $("[class='notification__content']").shouldHave(Condition.text("Встреча успешно запланирована на " + firstMeetingDate), Duration.ofSeconds(15));
+
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").setValue(secondMeetingDate);
 
         $(byText("Запланировать")).click();
-        $("[data-test-id='replan-notification']").shouldHave(Condition.text("У вас уже запланирована встреча на другую дату. Перепланировать?"), Duration.ofSeconds(2));
+        $("[data-test-id='replan-notification']").shouldHave(Condition.text("У вас уже запланирована встреча на другую дату. Перепланировать?"));
         $(byText("Перепланировать")).click();
-        $("[class='notification__content']").shouldHave(Condition.text("Встреча успешно запланирована на " + orderDate), Duration.ofSeconds(15));
+        $("[class='notification__content']").shouldHave(Condition.text("Встреча успешно запланирована на " + secondMeetingDate), Duration.ofSeconds(15));
 
 
     }

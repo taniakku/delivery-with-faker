@@ -5,29 +5,39 @@ import com.github.javafaker.Faker;
 import entities.DeliveryInfo;
 import lombok.experimental.UtilityClass;
 
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 
-@UtilityClass
 public class DataGenerator {
 
-    @UtilityClass
-    public class CardDelivery {
+    public static String generateDate(int shift) {
+        var date = LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        return date;
+    }
 
-        public static DeliveryInfo generateInfo(String locale) {
-            Faker faker = new Faker(new Locale(locale));
-            return new DeliveryInfo(faker.address().city(),
-                    LocalDate.now().plusDays(5).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
-                    faker.name().fullName(),
-                    faker.phoneNumber().phoneNumber());
+    public static String generateCity(String locale) {
+        Faker faker = new Faker(new Locale(locale));
+        var city = faker.address().city();
+        return city;
+    }
 
-
-        }
-
-
+    public static String generateName(String locale) {
+        Faker faker = new Faker(new Locale(locale));
+        var name = faker.name().fullName();
+        return name;
     }
 
 
+    public static String generatePhone(String locale) {
+        Faker faker = new Faker(new Locale(locale));
+        var phone = faker.phoneNumber().phoneNumber();
+        return phone;
+    }
+
 }
+
+
+
