@@ -47,7 +47,7 @@ public class CardDeliveryTest {
 
         $("[data-test-id='city'] input").setValue(DataGenerator.generateCity("ru"));
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").setValue();
+        $("[data-test-id='date'] input").setValue(firstMeetingDate);
         $(byName("name")).setValue(DataGenerator.generateName("ru"));
         $("[name='phone']").setValue(DataGenerator.generatePhone("ru"));
         $(byClassName("checkbox__box")).click();
